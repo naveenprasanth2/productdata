@@ -1,9 +1,9 @@
 package com.bharath.springdata.productdata.product.entities;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 
 @AllArgsConstructor
@@ -12,12 +12,13 @@ import lombok.*;
 @Setter
 @ToString
 @Entity
-@Table(name = "product")
-public class Product {
+@Table(name = "customer")
+public class Customer {
     @Id
     private int id;
     private String name;
-    @Column(name = "description")
-    private String desc;
-    private Double price;
+    @Email
+    private String email;
+
+
 }
