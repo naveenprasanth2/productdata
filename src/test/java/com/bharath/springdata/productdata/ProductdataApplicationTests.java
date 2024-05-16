@@ -1,6 +1,8 @@
 package com.bharath.springdata.productdata;
 
+import com.bharath.springdata.productdata.product.entities.Customer;
 import com.bharath.springdata.productdata.product.entities.Product;
+import com.bharath.springdata.productdata.product.repository.CustomerRepository;
 import com.bharath.springdata.productdata.product.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -14,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ProductdataApplicationTests {
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
     @Test
     void contextLoads() {
     }
@@ -55,6 +59,15 @@ class ProductdataApplicationTests {
     @Test
     void testCount(){
         System.out.println(productRepository.count());
+    }
+
+    @Test
+    void testCreateCustomer(){
+        Customer customer = new Customer();
+        customer.setId(1);
+        customer.setName("naveen");
+        customer.setEmail("summa@gmail.com");
+        customerRepository.save(customer);
     }
 
 }
