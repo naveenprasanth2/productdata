@@ -70,4 +70,13 @@ class ProductdataApplicationTests {
         customerRepository.save(customer);
     }
 
+    @Test
+    void testFindByName(){
+        productRepository.findByName("IWatch").forEach(System.out::println);
+    }
+
+    @Test
+    void testFindByNameAndDesc(){
+        productRepository.findByNameAndDesc("TV", "From Samsumg Inc").forEach(System.out::println);
+    }
 }

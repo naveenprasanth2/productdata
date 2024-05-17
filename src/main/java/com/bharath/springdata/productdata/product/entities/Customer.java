@@ -1,8 +1,6 @@
 package com.bharath.springdata.productdata.product.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
 
@@ -15,6 +13,7 @@ import lombok.*;
 @Table(name = "customer")
 public class Customer {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
     @Email
