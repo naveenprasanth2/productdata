@@ -9,6 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
+@Builder
 @Entity
 @Table(name = "customer")
 public class Customer {
@@ -18,4 +19,6 @@ public class Customer {
     private String name;
     @Email
     private String email;
+    @Embedded
+    private Address address;
 }

@@ -1,15 +1,18 @@
 package com.bharath.springdata.productdata;
 
+import com.bharath.springdata.productdata.product.entities.Address;
 import com.bharath.springdata.productdata.product.entities.Customer;
 import com.bharath.springdata.productdata.product.entities.Product;
 import com.bharath.springdata.productdata.product.repository.CustomerRepository;
 import com.bharath.springdata.productdata.product.repository.ProductRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Rollback;
 
 import java.awt.print.Pageable;
 import java.util.List;
@@ -166,5 +169,34 @@ class ProductdataApplicationTests {
         PageRequest pageRequest = PageRequest.of(0, 2).withSort(sort);
         productRepository.findAll(pageRequest).forEach(System.out::println);
 
+    }
+
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    void testUpdateWithIdAndEmail(){
+        customerRepository.updateCustomerByEmailAndId(1, "summa@gmail.com", "summa1@gmail.com");
+    }
+
+
+    @Test
+    void testCustomerPagingAndSorting(){
+        Sort sort = Sort.by(Sort.Order.asc("name"), Sort.Order.desc("id"));
+        PageRequest pageRequest = PageRequest.of(0, 5).withSort(sort);
+        customerRepository.findByIdGreaterThanEqual(1, pageRequest).forEach(System.out::println);
+    }
+
+    @Test
+    void testCustomerEmbeddedThings(){
+        customerRepository.save(Customer.builder()
+                .email("test@gmail.com")
+                .name("naveen prasanth")
+                .address(Address.builder().city("town")
+                        .country("India")
+                        .state("tamilnadu")
+                        .zip("9890808")
+                        .street("summa")
+                        .build())
+                .build());
     }
 }
